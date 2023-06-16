@@ -56,8 +56,8 @@ contract Profiles{
     // add album to users profile albums array
 
     function addAlbum(address albumAddress) public {
-        require(allProfiles[msg.sender].userAddress != address(0), "Profile: no profile created");
-        _addAlbum(albumAddress, msg.sender);
+        require(allProfiles[tx.origin].userAddress != address(0), "Profile: no profile created");
+        _addAlbum(albumAddress, tx.origin);
     }
 
     // like a users profile function
