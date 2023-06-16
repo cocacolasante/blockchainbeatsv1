@@ -6,19 +6,19 @@ pragma solidity ^0.8.9;
 
 contract Profiles{
     // admin address
-    address private admin;
+    address public admin;
 
     // mapping of users to profiles
     mapping(address=> Profile) public allProfiles;
 
     // all profile address array
-    address[] profileAddresses;
+    address[] public profileAddresses;
 
 
     struct Profile{
         address userAddress;
         string username;
-        uint likes;
+        uint likes; // number of likes a user gets
         address[] following; // addresses this profile is following
         address[] albums; // nft album array
         mapping(address=>bool) hasLiked; // other users if they have/havenot liked this profile
@@ -35,18 +35,73 @@ contract Profiles{
 
         allProfiles[msg.sender].userAddress = msg.sender;
         _setUsername(_username, msg.sender);
+        profileAddresses.push(msg.sender);
+
+    }
+
+    // follow function
+    function followOtherProfile(address profile) public {
+        require(getProfileStructBool(profile, msg.sender) == false, "Profile: already following");
         
+        Profile storage targetProfile = allProfiles[msg.sender];
+        targetProfile.following.push(profile);
+
+        Profile storage otherProfile = allProfiles[profile];
+        otherProfile.likes++;
+        otherProfile.hasLiked[msg.sender] = true;
         
 
     }
 
-    // setter
+    // add album to users profile albums array
+
+    function addAlbum(address albumAddress) public {
+        require(allProfiles[msg.sender].userAddress != address(0), "Profile: no profile created");
+        _addAlbum(albumAddress, msg.sender);
+    }
+
+    // like a users profile function
+    function likeProfile(address profile) public {
+        require(allProfiles[msg.sender].userAddress != address(0), "Profile: no profile created");
+        require(allProfiles[profile].userAddress != address(0), "Profile: no target profile");
+        allProfiles[profile].likes++;
+        allProfiles[profile].hasLiked[msg.sender] = true;
+        
+    }
+
+
+    // internal setusername function
+    function _setUsername(string memory _username, address addyToUpdate) internal{
+        allProfiles[addyToUpdate].username = _username;
+    }
+    // internal add album function taking two parameters
+    function _addAlbum(address albumAddress, address profileAddress) internal {
+        allProfiles[profileAddress].albums.push(albumAddress);
+    }
+
+
+    // setters
     function setUsername(string memory _username) public {
         require(msg.sender == allProfiles[msg.sender].userAddress, "Profile: Only profile owner");
         _setUsername(_username, msg.sender);
     }
 
-    function _setUsername(string memory _username, address addyToUpdate) internal{
-        allProfiles[addyToUpdate].username = _username;
+
+
+
+    // getter functions
+
+    function getUsersFollowing(address profile) public view returns(address[] memory){
+        return allProfiles[profile].following;
     }
+    // return array of target profile albums
+    function getUsersAlbums(address profile) public view returns(address[] memory){
+        return allProfiles[profile].albums;
+    }
+
+    // get boolean mapping from struct
+    function getProfileStructBool(address profile, address boolAddress ) public view returns(bool){
+        return allProfiles[profile].hasLiked[boolAddress];
+    }
+    
 }
