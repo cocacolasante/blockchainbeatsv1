@@ -53,6 +53,8 @@ contract Profiles{
 
     }
 
+    // TO DO -- IMPLIMENT UNFOLLOW FUNCTION!!!!!!!!!!
+
     // add album to users profile albums array
 
     function addAlbum(address albumAddress) public {
@@ -90,10 +92,10 @@ contract Profiles{
 
 
     // getter functions
-
     function getUsersFollowing(address profile) public view returns(address[] memory){
         return allProfiles[profile].following;
     }
+    
     // return array of target profile albums
     function getUsersAlbums(address profile) public view returns(address[] memory){
         return allProfiles[profile].albums;
