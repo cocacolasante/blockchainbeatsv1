@@ -12,7 +12,7 @@ contract AlbumNFT is ERC721URIStorage{
     // token count which is the total songs minted to this collection
     uint private _tokenCount;
     // total number of tracks on track list
-    uint private _trackCount;
+    uint public _trackCount;
 
     //mapping of token to song
     mapping(uint => Song) public allSongs;
@@ -69,9 +69,7 @@ contract AlbumNFT is ERC721URIStorage{
         Song storage targetSong = _updateSongStatus(songNum, 1);
 
         trackList[trackSpot] = targetSong;
-        _trackCount++;
-
-
+        
         return true;
 
     }
@@ -79,6 +77,25 @@ contract AlbumNFT is ERC721URIStorage{
     // removing a song from production
     function removeSong(uint songNum) public onlyArtist returns(Song memory){
         Song storage targetSong = _updateSongStatus(songNum, 2);
+
+        
+        return targetSong;
+
+    }
+    
+    // changing song status in allsong mapping
+    function changeSongStatus(uint songNum, uint status) public onlyArtist returns(Song memory){
+        Song memory targetSong = _updateSongStatus(songNum, status);
+        return targetSong;
+    }
+
+
+
+    // internal remove song function abstraction
+    // removed song from track list (if it is on the track list)
+    // changes song status of song in allsongs mapping
+    function _removeSong(uint songNum) internal returns(Song storage){
+        Song storage targetSong = allSongs[songNum];
 
         if(targetSong.currentStatus == SongStatus.albumSong){
             for(uint i = 0; i <= _trackCount; i++){
@@ -88,11 +105,11 @@ contract AlbumNFT is ERC721URIStorage{
                 }
             }
         }
-
-        
-
+        targetSong.currentStatus = SongStatus.removed;
 
         return targetSong;
+
+
 
     }
 
@@ -101,9 +118,10 @@ contract AlbumNFT is ERC721URIStorage{
         Song storage targetSong = allSongs[songNum];
         if(songStatus == 1){
             targetSong.currentStatus = SongStatus.albumSong;
+            _trackCount++;
 
         } else if(songStatus == 2){
-            targetSong.currentStatus = SongStatus.removed;
+            _removeSong(songNum);
         } else{
             targetSong.currentStatus = SongStatus.unpublished;
         }

@@ -48,13 +48,14 @@ describe("Album NFT Deployment", () =>{
             
             expect(track1.currentStatus).to.equal(song1.currentStatus);
         })
-        it("checks a song is removed from track mapping", async () =>{
+        it("checks song remove function", async () =>{
             await AlbumNFT1.connect(artist).removeSong(1);
             const track1 = await AlbumNFT1.trackList(1)
             song1 = await AlbumNFT1.allSongs(1);
 
             expect(track1.name).to.equal("")
             expect(song1.currentStatus).to.equal(2)
+            expect(await AlbumNFT1._trackCount()).to.equal(0);
         })
     })
 
