@@ -29,7 +29,6 @@ contract Profiles{
     }
 
     // create profile function
-
     function createProfile(string memory _username) public{
         require(allProfiles[msg.sender].userAddress == address(0), "Profile: already created profile");
 
@@ -138,4 +137,8 @@ contract Profiles{
         return allProfiles[profile].hasLiked[boolAddress];
     }
     
+    // return all artists
+    function getAllProfiles() public view returns(address[] memory){
+        return profileAddresses;
+    }
 }
