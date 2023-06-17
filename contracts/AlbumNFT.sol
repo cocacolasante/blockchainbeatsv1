@@ -11,6 +11,9 @@ contract AlbumNFT is ERC721URIStorage{
     // artist of the album
     address public artist;
 
+    // base album art uri
+    string public albumArtUri;
+
     // token count which is the total songs minted to this collection
     uint private _tokenCount;
     // total number of tracks on track list
@@ -141,6 +144,11 @@ contract AlbumNFT is ERC721URIStorage{
     // cannot be switched back to in production once completed
     function finishAlbum() public onlyArtist returns(bool){
         return finished = true;
+    }
+
+    // set the album artwork
+    function setAlbumArtUri(string memory artUri) public onlyArtist albumCompleted returns(string memory){
+        return albumArtUri = artUri;
     }
 
 

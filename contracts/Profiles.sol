@@ -2,7 +2,7 @@
 pragma solidity ^0.8.9;
 
 // Uncomment this line to use console.log
-// import "hardhat/console.sol";
+import "hardhat/console.sol";
 
 contract Profiles{
     // admin address
@@ -53,7 +53,29 @@ contract Profiles{
 
     }
 
-    // TO DO -- IMPLIMENT UNFOLLOW FUNCTION!!!!!!!!!!
+    // unfollow function to delete address from following array in profile struct, not eligant, but works
+    
+    function unfollowOtherProfile(address profile) public {
+        require(getProfileStructBool(profile, msg.sender) == true, "Profile: not currently following");
+        
+        Profile storage targetProfile = allProfiles[msg.sender];
+
+
+        for(uint i =0; i < targetProfile.following.length; i++){
+            if(targetProfile.following[i] == profile){
+                delete targetProfile.following[i];
+            }
+            
+        }
+
+        Profile storage otherProfile = allProfiles[profile];
+        otherProfile.likes--;
+        otherProfile.hasLiked[msg.sender] = false;
+        
+
+    }
+
+
 
     // add album to users profile albums array
 
@@ -66,9 +88,19 @@ contract Profiles{
     function likeProfile(address profile) public {
         require(allProfiles[msg.sender].userAddress != address(0), "Profile: no profile created");
         require(allProfiles[profile].userAddress != address(0), "Profile: no target profile");
+        require(getProfileStructBool(profile, msg.sender) == false, "Profile: you currently like this profile");
+
         allProfiles[profile].likes++;
         allProfiles[profile].hasLiked[msg.sender] = true;
         
+    }
+    // TO DO CREATE UNLIKE PROFILE OPTION
+
+    function unlikeProfile(address profile ) public {
+        require(allProfiles[msg.sender].userAddress != address(0), "Profile: no profile created");
+        require(getProfileStructBool(profile, msg.sender) == true, "Profile: you do not current like this profile");
+        allProfiles[profile].likes--;
+        allProfiles[profile].hasLiked[msg.sender] = false;
     }
 
 
@@ -95,7 +127,7 @@ contract Profiles{
     function getUsersFollowing(address profile) public view returns(address[] memory){
         return allProfiles[profile].following;
     }
-    
+
     // return array of target profile albums
     function getUsersAlbums(address profile) public view returns(address[] memory){
         return allProfiles[profile].albums;

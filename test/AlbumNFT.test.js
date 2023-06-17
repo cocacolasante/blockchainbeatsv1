@@ -24,6 +24,10 @@ describe("Album NFT Deployment", () =>{
         expect(await AlbumNFT1.name()).to.equal(ALBUMNAME1)
         expect(await AlbumNFT1.symbol()).to.equal(ALBUMSYM1)
     })
+    it("checks the album art uri is set", async () =>{
+        await AlbumNFT1.connect(artist).setAlbumArtUri(SAMEPLEURI)
+        expect(await AlbumNFT1.albumArtUri()).to.equal(SAMEPLEURI)
+    })
     describe("Create/manage Song Functions", () =>{
 
         beforeEach(async () => {
@@ -55,7 +59,7 @@ describe("Album NFT Deployment", () =>{
 
             expect(track1.name).to.equal("")
             expect(song1.currentStatus).to.equal(2)
-            expect(await AlbumNFT1._trackCount()).to.equal(0);
+            expect(await AlbumNFT1._trackCount()).to.equal(0)
         })
     })
 

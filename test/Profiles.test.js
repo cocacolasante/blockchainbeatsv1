@@ -20,6 +20,8 @@ describe("Profile contract Deployment", () =>{
     describe("Creating a profile", () =>{
         beforeEach(async () =>{
             await ProfilesContract.connect(user1).createProfile(USERNAME1)
+            await ProfilesContract.connect(user2).createProfile(USERNAME1)
+            await ProfilesContract.connect(user3).createProfile(USERNAME1)
             profile1 = await ProfilesContract.allProfiles(user1.address)
 
             await ProfilesContract.connect(deployer).createProfile("Deployer")
@@ -65,6 +67,16 @@ describe("Profile contract Deployment", () =>{
             expect(deployerProfile.likes).to.equal(1)
             expect(await ProfilesContract.getProfileStructBool(deployer.address, user1.address)).to.equal(true);
             
+        })
+        it("checks the unfollow function", async () =>{
+            await ProfilesContract.connect(user1).followOtherProfile(deployer.address)
+            await ProfilesContract.connect(user1).followOtherProfile(user2.address)
+            await ProfilesContract.connect(user1).followOtherProfile(user3.address)
+            
+            await ProfilesContract.connect(user1).unfollowOtherProfile(deployer.address)
+            const followingArr = await ProfilesContract.getUsersFollowing(user1.address)
+
+            console.log(followingArr, "manual check pass")
         })
 
     })

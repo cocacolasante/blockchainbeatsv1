@@ -30,7 +30,8 @@ contract AlbumCreator{
         admin = msg.sender;
 
     }
-
+    // creates album contract
+    // creates a struct instance and stores in a general mapping of address to array of album addresses
     function createAlbumContract(string memory _albumName, string memory _albSym) public {
         AlbumNFT newAlbumContract = new AlbumNFT(_albumName, _albSym);
         IProfile(ProfilesAddress).addAlbum(address(newAlbumContract));
