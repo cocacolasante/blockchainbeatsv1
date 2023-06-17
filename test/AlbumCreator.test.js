@@ -6,9 +6,10 @@ const TESTUSERSNAME = "TESTUSERNAME"
 const TESTALBNAME1 = "TESTALBNAME1"
 const TESTSYMB1 = "TSMB1"
 const addresszero = ethers.utils.getAddress("0x0000000000000000000000000000000000000000")
+const oneEther = ethers.utils.parseEther("1")
 
 describe("Album creator contract deployment", () =>{
-    let AlbumCreator, ProfilesContract, deployer, user1, user2, user3, firstAlbum, firstAlbumAddy, firstAlbumNftContract
+    let AlbumCreator, ProfilesContract, deployer, user1, user2, user3, initialBalance, firstAlbum, firstAlbumAddy, firstAlbumNftContract
 
     beforeEach(async () =>{
         [deployer, user1, user2, user3] = await ethers.getSigners();
@@ -31,11 +32,12 @@ describe("Album creator contract deployment", () =>{
     })
     describe("Create Album Contract Function", () =>{
         beforeEach(async ()=>{
+            initialBalance = await ethers.provider.getBalance(deployer.address)
             //user 1 creates a profile on the profile contract
             // then makes an album
             await ProfilesContract.connect(user1).createProfile(TESTUSERSNAME)
 
-            await AlbumCreator.connect(user1).createAlbumContract(TESTALBNAME1, TESTSYMB1)
+            await AlbumCreator.connect(user1).createAlbumContract(TESTALBNAME1, TESTSYMB1, {value: oneEther })
             firstAlbum = await AlbumCreator.artistsAlbums(user1.address, 0)
             firstAlbumAddy = firstAlbum.albumAddress;
             firstAlbumNftContract = new ethers.Contract(firstAlbumAddy, albumAbi.abi, user1 )
@@ -53,6 +55,11 @@ describe("Album creator contract deployment", () =>{
         it("checks the album was added to the profile contract", async () =>{
             const profileAlbumArr = await ProfilesContract.getUsersAlbums(user1.address)
             expect(profileAlbumArr[0]).to.equal(firstAlbumAddy)
+        })
+        it("checks the album cost was tranferred to admin/deployer", async () =>{
+            let finalBalance = await ethers.provider.getBalance(deployer.address)
+
+            expect(BigInt(finalBalance) - BigInt(initialBalance)).to.equal(ethers.utils.parseEther("1"))
         })
     })
 })
