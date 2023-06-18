@@ -5,5 +5,20 @@ pragma solidity ^0.8.9;
 // import "hardhat/console.sol";
 
 contract Marketplace{
-    
+    address public admin;
+
+    struct Listing{
+        address currentOwner;
+        uint price;
+        ListingStatus status;
+        
+    }
+
+
+    enum ListingStatus {forSale, sold, removed}
+
+
+    constructor(){
+        admin = msg.sender;
+    }
 }
