@@ -1,4 +1,5 @@
-import React, {useState, useEffect} from "react";
+"use client";
+import React, {useState, useEffect, useContext} from "react";
 import { ethers } from "ethers";
 import Web3Modal from "web3modal"
 
@@ -242,7 +243,76 @@ export const SmartContractProvider = ({children}) =>{
             console.log(error)
         }
     }
+
+    const getUsersProfile = async () =>{
+        const provider = new ethers.providers.JsonRpcProvider()
+        
+        const contract = fetchProfileContract(provider)
+
+        const usersProfile = await contract.allProfiles(currentAccount);
+        return usersProfile;
+
+    }
+
+    const checkIfWalletIsConnected = async () =>{
+        try{
+            if(!window.ethereum){
+                alert("please install metamask extension")
+            }
+
+            const accounts = await window.ethereum.request({method: "eth_accounts"})
+            if(accounts.length){
+                const currentUser = accounts[0];
     
+                setCurrentAccount(currentUser);
+
+            }
+
+        }catch(err){
+            console.log(err )
+        }
+    }
+    
+    useEffect(()=>{
+        checkIfWalletIsConnected();
+    }, [])
+
+
+    const connectToWallet = async () =>{
+        try{
+            if(!window.ethereum){
+                alert("please install metamask extension")
+                
+            }
+
+            const accounts = await window.ethereum.request({method: "eth_requestAccounts"})
+            if(accounts.length){
+                
+    
+                setCurrentAccount(accounts[0]);
+
+            }
+
+        }catch(err){
+            console.log(err )
+        }
+    }
+
+    return (
+        <SmartContractContext.Provider
+        value={({
+            connectToWallet,
+            checkIfWalletIsConnected,
+            getUsersProfile,
+            createAlbumContract,
+            getAllProfiles,
+            currentAccount
+        })}
+        >{children}</SmartContractContext.Provider>
+
+    )
 
 
 }
+
+export const useSmartContractContext = () => useContext(SmartContractContext)
