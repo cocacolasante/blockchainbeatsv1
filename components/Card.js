@@ -10,7 +10,6 @@ const Card = (props) => {
         <h2>{props.albumname}</h2>
       </div>
       <div>
-      {}
         <Image alt="album artwork" src={!props.albumart ? blueconcert : props.albumart} width={300} height={150} />
       </div>
       <div>
