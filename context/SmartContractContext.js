@@ -19,6 +19,8 @@ export const SmartContractContext = React.createContext();
 export const SmartContractProvider = ({children}) =>{
     const [currentAccount, setCurrentAccount] = useState()
 
+    const [allArtists, setAllArtists] = useState()
+
     const [usersProfile, setUsersProfile] = useState()
     // profiles contract functions
 
@@ -26,7 +28,7 @@ export const SmartContractProvider = ({children}) =>{
     const createUserProfile = async (username) =>{
         const web3Modal = new Web3Modal()
         const connection = await web3Modal.connect();
-        
+
         const provider = new ethers.providers.Web3Provider(connection)
         const signer = provider.getSigner()
 
@@ -65,7 +67,7 @@ export const SmartContractProvider = ({children}) =>{
             }
             
             const usersProfile = await contract.getProfile(address)
-            console.log(usersProfile)
+            
             setUsersProfile(usersProfile)
            
         }catch(err){
@@ -228,7 +230,7 @@ export const SmartContractProvider = ({children}) =>{
         }
     }
 
-
+    // WORKING ON THIS FUNCTION ----------------------------------------------------------------------------------------------------------
     const getAllProfiles = async () =>{
         const provider = new ethers.providers.JsonRpcProvider(rpcConnection, networkId)
         
@@ -241,11 +243,12 @@ export const SmartContractProvider = ({children}) =>{
 
             const output = new Array();
             for(let i = 0; i < profileAddressArray.length; i++){
-                profile = await contract.allProfiles(profileAddressArray[i])
+                const profile = await contract.getProfile(profileAddressArray[i])
                 output.push(profile);
 
             }
 
+            setAllArtists(output)
             return output;
 
             
@@ -308,6 +311,7 @@ export const SmartContractProvider = ({children}) =>{
     
     useEffect(()=>{
         checkIfWalletIsConnected();
+        getAllProfiles();
         
     }, [])
 
@@ -343,7 +347,8 @@ export const SmartContractProvider = ({children}) =>{
             currentAccount,
             fetchUsersProfile,
             usersProfile,
-            createUserProfile
+            createUserProfile,
+            allArtists
 
         })}
         >{children}</SmartContractContext.Provider>

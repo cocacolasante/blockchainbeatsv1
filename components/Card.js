@@ -1,5 +1,6 @@
 import React from 'react'
 import Image from 'next/image'
+import blueconcert from "../public/images/blueconcert.png"
 
 const Card = (props) => {
   return (
@@ -9,7 +10,8 @@ const Card = (props) => {
         <h2>{props.albumname}</h2>
       </div>
       <div>
-        <Image alt="album artwork" src={props.albumart} width={200} height={150} />
+      {}
+        <Image alt="album artwork" src={!props.albumart ? blueconcert : props.albumart} width={200} height={150} />
       </div>
       <div>
         <button >View Album</button>
