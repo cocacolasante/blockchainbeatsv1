@@ -1,7 +1,7 @@
 import './globals.css'
 import { SmartContractProvider } from '../../context/SmartContractContext'
 import Navbar from '../../components/Navbar'
-
+import Footer from '../../components/Footer'
 
 
 export const metadata = {
@@ -16,6 +16,7 @@ export default function RootLayout({ children }) {
             <SmartContractProvider>
               <Navbar />
                 {children}
+              <Footer />
             </SmartContractProvider>
           </body>
 

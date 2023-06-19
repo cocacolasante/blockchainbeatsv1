@@ -3,8 +3,8 @@ import ProjectGrid from "./ProjectGrid"
 
 const DisplayProfile = (props) => {
   return (
-    <div>
-        <div className="text-center">
+    <div className="">
+        <div className="justify-center text-center align-middle h-screen/2 bg-zinc-700">
             <h2>{props.username}</h2>
             <p>{props.userAddress}</p>
             <p>Likes: {props.likes}</p>
