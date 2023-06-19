@@ -1,14 +1,14 @@
 import Card from "./Card"
 
-const ProjectGrid = ({data}) => {
+const ProjectGrid = ({data, bgColor}) => {
 
   return (
-    <div className="">
+    <div className={`${bgColor} pt-6`}>
         <div className="flex justify-center pb-6">
             <h2>Current Albums</h2>
             
         </div>
-        <div className="grid grid-cols-4 gap-1 pl-6">
+        <div className="grid grid-cols-4 gap-1 pb-6 pl-10">
         {/* mapping over dummy data for now */}
             {data.map((album, i) =>{
                 return(
