@@ -26,6 +26,7 @@ export const SmartContractProvider = ({children}) =>{
     const createUserProfile = async (username) =>{
         const web3Modal = new Web3Modal()
         const connection = await web3Modal.connect();
+        
         const provider = new ethers.providers.Web3Provider(connection)
         const signer = provider.getSigner()
 
@@ -63,7 +64,7 @@ export const SmartContractProvider = ({children}) =>{
                 throw new Error("undefined address")
             }
             
-            const usersProfile = await contract.allProfiles(address)
+            const usersProfile = await contract.getProfile(address)
             console.log(usersProfile)
             setUsersProfile(usersProfile)
            
@@ -341,7 +342,8 @@ export const SmartContractProvider = ({children}) =>{
             getAllProfiles,
             currentAccount,
             fetchUsersProfile,
-            usersProfile
+            usersProfile,
+            createUserProfile
 
         })}
         >{children}</SmartContractContext.Provider>
