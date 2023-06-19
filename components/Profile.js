@@ -18,8 +18,7 @@ const Profile = () => {
     }
 
   return (
-    <div>
-        <h1>Profile</h1>
+    <div className="text-center">
         {!usersProfile ? <p>Loading...</p> : displayProfileOrCreate()}
         
     </div>

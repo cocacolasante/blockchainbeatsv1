@@ -6,7 +6,7 @@ import blueconcert from "../public/images/blueconcert.png"
 
 const Hero = () => {
   return (
-    <div className='justify-center w-full pt-10 h-screen/2 bg-zinc-600'>
+    <div className='justify-center w-full pt-10 h-screen/2'>
     <div className='text-center'>
         <h2>Featured Album</h2>
       

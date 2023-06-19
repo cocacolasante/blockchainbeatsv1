@@ -11,7 +11,7 @@ const Card = (props) => {
       </div>
       <div>
       {}
-        <Image alt="album artwork" src={!props.albumart ? blueconcert : props.albumart} width={200} height={150} />
+        <Image alt="album artwork" src={!props.albumart ? blueconcert : props.albumart} width={300} height={150} />
       </div>
       <div>
         <button >View Album</button>

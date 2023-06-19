@@ -230,7 +230,6 @@ export const SmartContractProvider = ({children}) =>{
         }
     }
 
-    // WORKING ON THIS FUNCTION ----------------------------------------------------------------------------------------------------------
     const getAllProfiles = async () =>{
         const provider = new ethers.providers.JsonRpcProvider(rpcConnection, networkId)
         

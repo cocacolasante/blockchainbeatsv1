@@ -11,14 +11,14 @@ const Navbar = () => {
   const {checkIfWalletIsConnected, connectToWallet, currentAccount} = useContext(SmartContractContext);
 
 
-  const menuList = ["Home", "Artists", "Albums", "Marketplace", "About Us", "Donate", "Profile"];
+  const menuList = ["Home", "Artists", "Marketplace", "About Us", "Donate", "Profile"];
   
   const handleDropdownClick = (e) =>{
     setIsMenuOpen(!isMenuOpen)
   }
 
   return (
-    <nav className="flex">
+    <nav className="flex bg-zinc-600">
       
 
           <div className="pt-6 pl-6">
@@ -42,7 +42,7 @@ const Navbar = () => {
 
             </ul>
           </div>
-          <div className="m-auto">
+          <div className="ml-auto">
             <h1 >Blockchain Beats</h1>
           </div>
         
