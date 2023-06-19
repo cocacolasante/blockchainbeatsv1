@@ -11,7 +11,7 @@ const Navbar = () => {
   const {checkIfWalletIsConnected, connectToWallet, currentAccount} = useContext(SmartContractContext);
 
 
-  const menuList = ["Artists", "Albums", "Marketplace", "Most Popular", "About Us", "Donate"];
+  const menuList = ["Artists", "Albums", "Marketplace", "About Us", "Donate", "Profile"];
   
   const handleDropdownClick = (e) =>{
     setIsMenuOpen(!isMenuOpen)
@@ -26,9 +26,9 @@ const Navbar = () => {
             <p className="text-black" onClick={handleDropdownClick}><AiOutlineMenu /></p>
             {!isMenuOpen ? <li onClick={null} className="text-2xl"></li> : menuList.map((item, i)=>{
                 return(
-                  <>
-                    <Link href={`/${item.toLowerCase().replace(/\s/g, '')}`} key={i}>{item}</Link>
-                  </>
+                  <div key={i}>
+                    <Link href={`/${item.toLowerCase().replace(/\s/g, '')}`} >{item}</Link>
+                  </div>
                 )
               })} 
               

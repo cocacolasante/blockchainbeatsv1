@@ -3,20 +3,23 @@ import React, {useState, useEffect, useContext} from "react";
 import { ethers } from "ethers";
 import Web3Modal from "web3modal"
 
-import { ProfileAbi, ProfileContractAddress, AlbumCreatorAbi, AlbumCreatorAddress } from "./constants";
+
+import { ProfileAbi, ProfileContractAddress, AlbumCreatorAbi, AlbumCreatorAddress, networkId, rpcConnection } from "./constants";
 
 // fetch smart contracts
 const fetchProfileContract = (signerOrProvider) =>{
-    new ethers.Contract(ProfileContractAddress, ProfileAbi, signerOrProvider)
+    return new ethers.Contract(ProfileContractAddress, ProfileAbi, signerOrProvider)
 }
 const fetchAlbumContract = (signerOrProvider) =>{
-    new ethers.Contract(AlbumCreatorAddress, AlbumCreatorAbi, signerOrProvider)
+    return new ethers.Contract(AlbumCreatorAddress, AlbumCreatorAbi, signerOrProvider)
 }
 
 export const SmartContractContext = React.createContext();
 
 export const SmartContractProvider = ({children}) =>{
     const [currentAccount, setCurrentAccount] = useState()
+
+    const [usersProfile, setUsersProfile] = useState()
     // profiles contract functions
 
     // create users profile function
@@ -45,6 +48,41 @@ export const SmartContractProvider = ({children}) =>{
 
         }
     } 
+
+    // get users profile
+
+    const fetchUsersProfile = async (address) =>{
+        const provider = new ethers.providers.JsonRpcProvider()
+        console.log(provider)
+
+        const contract = fetchProfileContract(provider)
+        console.log(contract)
+
+        try{
+            if(address == undefined){
+                throw new Error("undefined address")
+            }
+            
+            const usersProfile = await contract.allProfiles(address)
+            console.log(usersProfile)
+            setUsersProfile(usersProfile)
+           
+        }catch(err){
+            console.log(err)
+        }
+    }
+
+    const getUsersProfile = async () =>{
+        const provider = new ethers.providers.JsonRpcProvider()
+        
+        const contract = fetchProfileContract(provider)
+        
+
+        const usersProfile = await contract.getProfile(currentAccount);
+
+        return usersProfile;
+
+    }
 
     // follow artists profile function
     const followArtistsProfile = async (profile) => {
@@ -191,7 +229,7 @@ export const SmartContractProvider = ({children}) =>{
 
 
     const getAllProfiles = async () =>{
-        const provider = new ethers.providers.JsonRpcProvider()
+        const provider = new ethers.providers.JsonRpcProvider(rpcConnection, networkId)
         
         const contract = fetchProfileContract(provider)
 
@@ -244,15 +282,7 @@ export const SmartContractProvider = ({children}) =>{
         }
     }
 
-    const getUsersProfile = async () =>{
-        const provider = new ethers.providers.JsonRpcProvider()
-        
-        const contract = fetchProfileContract(provider)
 
-        const usersProfile = await contract.allProfiles(currentAccount);
-        return usersProfile;
-
-    }
 
     const checkIfWalletIsConnected = async () =>{
         try{
@@ -266,6 +296,8 @@ export const SmartContractProvider = ({children}) =>{
     
                 setCurrentAccount(currentUser);
 
+                await fetchUsersProfile(currentUser);
+
             }
 
         }catch(err){
@@ -275,6 +307,7 @@ export const SmartContractProvider = ({children}) =>{
     
     useEffect(()=>{
         checkIfWalletIsConnected();
+        
     }, [])
 
 
@@ -306,7 +339,10 @@ export const SmartContractProvider = ({children}) =>{
             getUsersProfile,
             createAlbumContract,
             getAllProfiles,
-            currentAccount
+            currentAccount,
+            fetchUsersProfile,
+            usersProfile
+
         })}
         >{children}</SmartContractContext.Provider>
 

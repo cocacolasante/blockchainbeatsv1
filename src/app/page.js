@@ -1,61 +1,45 @@
 import Hero from "../../components/Hero"
 import ProjectGrid from "../../components/ProjectGrid"
+import yellowconcert from "../../public/images/yellowconcert.png"
 
 const dummyData = [
   {
       artistname: "tester",
       albumname: "album1",
-      albumart: "https://placehold.co/600x400/png",
+      albumart: yellowconcert,
       albumSymbol: "TS1"
   },
   {
       artistname: "tester",
       albumname: "album1",
-      albumart: "https://placehold.co/600x400/png",
+      albumart: yellowconcert,
       albumSymbol: "TS1"
   },
   {
       artistname: "tester",
       albumname: "album1",
-      albumart: "https://placehold.co/600x400/png",
+      albumart: yellowconcert,
       albumSymbol: "TS1"
   },
   {
       artistname: "tester",
       albumname: "album1",
-      albumart: "https://placehold.co/600x400/png",
+      albumart: yellowconcert,
       albumSymbol: "TS1"
   },
   {
       artistname: "tester",
       albumname: "album1",
-      albumart: "https://placehold.co/600x400/png",
+      albumart: yellowconcert,
       albumSymbol: "TS1"
   },
   {
       artistname: "tester",
       albumname: "album1",
-      albumart: "https://placehold.co/600x400/png",
+      albumart: yellowconcert,
       albumSymbol: "TS1"
   },
-  {
-      artistname: "tester",
-      albumname: "album1",
-      albumart: "https://placehold.co/600x400/png",
-      albumSymbol: "TS1"
-  },
-  {
-      artistname: "tester",
-      albumname: "album1",
-      albumart: "https://placehold.co/600x400/png",
-      albumSymbol: "TS1"
-  },
-  {
-      artistname: "tester",
-      albumname: "album1",
-      albumart: "https://placehold.co/600x400/png",
-      albumSymbol: "TS1"
-  },
+
 ]
 
 export default function Home() {

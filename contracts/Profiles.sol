@@ -141,4 +141,23 @@ contract Profiles{
     function getAllProfiles() public view returns(address[] memory){
         return profileAddresses;
     }
+
+    // returns individual profile
+
+    function getProfile(address profileAddress) public view returns(address userAddress,
+        string memory username,
+        uint likes,
+        address[] memory following,
+        address[] memory albums) {
+        Profile storage profile = allProfiles[profileAddress];
+        return (
+            profile.userAddress,
+            profile.username,
+            profile.likes,
+            profile.following,
+            profile.albums
+        );
+    }
+
+
 }

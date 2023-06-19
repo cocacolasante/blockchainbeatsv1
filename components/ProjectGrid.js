@@ -13,7 +13,7 @@ const ProjectGrid = ({data}) => {
             {data.map((album, i) =>{
                 return(
                     
-                    <Card key={i} albumname={album.albumname} artistname={album.artistname}  />
+                    <Card key={i} albumname={album.albumname} artistname={album.artistname} albumart={album.albumart} />
                     
                 )
             })}
