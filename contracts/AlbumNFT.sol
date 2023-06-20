@@ -21,6 +21,7 @@ contract AlbumNFT is ERC721URIStorage{
 
     //mapping of token to song
     mapping(uint => Song) public allSongs;
+    
     //mapping of songs to track list
     mapping(uint => Song) public trackList;
 

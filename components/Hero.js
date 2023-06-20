@@ -8,7 +8,7 @@ const Hero = () => {
   return (
     <div className='justify-center w-full pt-10 h-screen/2'>
     <div className='text-center'>
-        <h2>Featured Album</h2>
+        <h2 className='text-3xl'>Featured Album</h2>
       
     </div>
         <div className='flex justify-center align-middle'>

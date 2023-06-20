@@ -5,7 +5,7 @@ const ProjectGrid = ({data, bgColor}) => {
   return (
     <div className={`${bgColor} pt-6`}>
         <div className="flex justify-center pb-6">
-            <h2>Current Albums</h2>
+            <h2 className="text-3xl text-white ">Current Albums</h2>
             
         </div>
         <div className="grid grid-cols-4 gap-1 pb-6 pl-10">
