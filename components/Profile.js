@@ -1,4 +1,4 @@
-"use client";
+ "use client";
 
 import { useState, useEffect, useContext } from "react"
 import CreateProfile from "./CreateProfile";

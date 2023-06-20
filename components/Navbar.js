@@ -11,7 +11,7 @@ const Navbar = () => {
   const {checkIfWalletIsConnected, connectToWallet, currentAccount} = useContext(SmartContractContext);
 
 
-  const menuList = ["Home", "Artists", "Marketplace", "Create an Album", "About Us", "Donate", "Profile"];
+  const menuList = ["Home", "Artists", "Marketplace", "Create an Album", "Profile"];
   
   const handleDropdownClick = (e) =>{
     setIsMenuOpen(!isMenuOpen)

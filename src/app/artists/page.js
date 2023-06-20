@@ -6,9 +6,9 @@ const page = () => {
   return (
     <div>
     <Hero />
-      <div className='text-center'>
-        <h2>All Artists</h2>
-      </div>
+      <div className='text-center bg-zinc-600'>
+        <h2 className='text-3xl'>All Artists</h2>
+      </div> 
       <ArtistsGrid />
 
     </div>

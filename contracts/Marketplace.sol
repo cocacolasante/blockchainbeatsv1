@@ -74,6 +74,7 @@ contract Marketplace{
 
         // amount for original artist
         uint artistAmount = msg.value / 10;
+        // amount for listing owner
         uint ownerAmount = msg.value - artistAmount;
 
         payable(targetListing.originalArtist).transfer(artistAmount);
@@ -81,7 +82,7 @@ contract Marketplace{
         IAlbumNFT(targetListing.nftContract).transferFrom(address(this), msg.sender, targetListing.tokenId);
 
         targetListing.listingOwner = msg.sender;
-        
+
     }
 
 }

@@ -8,10 +8,11 @@ const ArtistsGrid = () => {
     const {allArtists} = useContext(SmartContractContext);
 
   return (
-    <div className="grid grid-cols-4 gap-1 pl-6">
-        
+    <div className="grid grid-cols-4 gap-1 p-6 bg-zinc-600">
+        {console.log(allArtists)}
         {allArtists && allArtists.map((artist, i) =>{
-            return <Card key={i} artistname={artist.username} albumname={artist.albums[0]}  />
+          
+            return <Card key={i} artistname={artist.username} albumname={artist.albums[0]} artistAddress={artist.userAddress} />
         })}
     </div>
   )

@@ -10,7 +10,8 @@ const DisplayProfile = (props) => {
             <p>Likes: {props.likes}</p>
         </div>
         <div>
-            <ProjectGrid data={props.albums} />
+        {props.albums && <ProjectGrid data={props.albums} /> }
+            
         </div>
 
     </div>

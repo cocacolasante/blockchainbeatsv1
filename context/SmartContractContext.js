@@ -75,13 +75,13 @@ export const SmartContractProvider = ({children}) =>{
         }
     }
 
-    const getUsersProfile = async () =>{
+    const getUsersProfile = async (address) =>{
         const provider = new ethers.providers.JsonRpcProvider()
         
         const contract = fetchProfileContract(provider)
         
 
-        const usersProfile = await contract.getProfile(currentAccount);
+        const usersProfile = await contract.getProfile(address);
 
         return usersProfile;
 
@@ -347,7 +347,8 @@ export const SmartContractProvider = ({children}) =>{
             fetchUsersProfile,
             usersProfile,
             createUserProfile,
-            allArtists
+            allArtists,
+            getAlbumsList
 
         })}
         >{children}</SmartContractContext.Provider>

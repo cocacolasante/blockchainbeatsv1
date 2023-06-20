@@ -18,6 +18,13 @@ async function main() {
   await AlbumCreatorContract.deployed()
 
   console.log(`Album Creator deployed to ${AlbumCreatorContract.address}`)
+
+  const marketplaceFactory = await hre.ethers.getContractFactory("Marketplace")
+  const MarketplaceContract = await marketplaceFactory.deploy()
+  await MarketplaceContract.deployed()
+
+  console.log(`Marketplace deployed to ${MarketplaceContract.address}`)
+  
 }
 
 // We recommend this pattern to be able to use async/await everywhere
