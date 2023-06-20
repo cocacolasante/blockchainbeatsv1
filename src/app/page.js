@@ -2,6 +2,7 @@ import Hero from "../../components/Hero"
 import ProjectGrid from "../../components/ProjectGrid"
 import yellowconcert from "../../public/images/yellowconcert.png"
 import CallToAction from "../../components/CallToAction"
+import FrontPageGrid from "../../components/FrontPageGrid"
 
 const dummyData = [
   {
@@ -48,7 +49,7 @@ export default function Home() {
     <>
       <Hero />
       <CallToAction />
-      <ProjectGrid bgColor={"bg-zinc-600"} data={dummyData} />
+      <FrontPageGrid />
     </>
   )
 }

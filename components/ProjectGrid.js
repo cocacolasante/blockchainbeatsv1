@@ -9,11 +9,11 @@ const ProjectGrid = ({data, bgColor}) => {
             
         </div>
         <div className="grid grid-cols-4 gap-1 pb-6 pl-10">
-        {/* mapping over dummy data for now */}
+            
             {data.map((album, i) =>{
+                console.log(album)        
                 return(
-                    
-                    <Card key={i} albumname={album.albumname} artistname={album.artistname} albumart={album.albumart} />
+                    <Card key={i} albumname={album.userAddress} artistname={album.username} albumart={album.albumart} artistAddress={album.userAddress} />
                     
                 )
             })}
