@@ -4,7 +4,7 @@ import { ethers } from "ethers";
 import Web3Modal from "web3modal"
 
 
-import { ProfileAbi, ProfileContractAddress, AlbumCreatorAbi, AlbumCreatorAddress, networkId, rpcConnection } from "./constants";
+import { ProfileAbi, ProfileContractAddress, AlbumCreatorAbi, AlbumCreatorAddress, networkId, rpcConnection, AlbumNftAbi } from "./constants";
 
 // fetch smart contracts
 const fetchProfileContract = (signerOrProvider) =>{
@@ -13,6 +13,9 @@ const fetchProfileContract = (signerOrProvider) =>{
 const fetchAlbumContract = (signerOrProvider) =>{
     return new ethers.Contract(AlbumCreatorAddress, AlbumCreatorAbi, signerOrProvider)
 }
+
+
+
 
 export const SmartContractContext = React.createContext();
 
@@ -23,6 +26,8 @@ export const SmartContractProvider = ({children}) =>{
 
     const [usersProfile, setUsersProfile] = useState()
     // profiles contract functions
+
+    const RpcProvider = new ethers.providers.JsonRpcProvider()
 
     // create users profile function
     const createUserProfile = async (username) =>{
@@ -335,6 +340,13 @@ export const SmartContractProvider = ({children}) =>{
         }
     }
 
+    // ================ get individual album function ========
+    const fetchIndividualAlbumContract = async (signerOrProvider, albumAddress) =>{
+        
+    
+        return new ethers.Contract(albumAddress, AlbumNftAbi, signerOrProvider)
+    }
+
     return (
         <SmartContractContext.Provider
         value={({
@@ -348,7 +360,9 @@ export const SmartContractProvider = ({children}) =>{
             usersProfile,
             createUserProfile,
             allArtists,
-            getAlbumsList
+            getAlbumsList,
+            fetchIndividualAlbumContract,
+            RpcProvider
 
         })}
         >{children}</SmartContractContext.Provider>

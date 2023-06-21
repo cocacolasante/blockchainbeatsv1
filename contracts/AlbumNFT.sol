@@ -15,7 +15,7 @@ contract AlbumNFT is ERC721URIStorage{
     string public albumArtUri;
 
     // token count which is the total songs minted to this collection
-    uint private _tokenCount;
+    uint public _tokenCount;
     // total number of tracks on track list
     uint public _trackCount;
 

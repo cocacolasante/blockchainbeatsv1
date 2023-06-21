@@ -57,6 +57,11 @@ contract AlbumCreator{
         albumCost = newCost;
     }
 
+
+    function returnAlbumContract(address artist, uint albumNum) public view returns(address){
+        return artistsAlbums[artist][albumNum].albumAddress;
+    }
+
     
 
 
