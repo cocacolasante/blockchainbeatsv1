@@ -3,7 +3,7 @@ import Image from 'next/image'
 import blueconcert from "../public/images/blueconcert.png"
 import Link from 'next/link'
 
-const Card = (props) => {
+const AlbumCard = (props) => {
   
 
 
@@ -17,10 +17,10 @@ const Card = (props) => {
         <Image alt="album artwork" src={!props.albumart ? blueconcert : props.albumart} width={300} height={150} />
       </div>
       <div>
-        <Link href={`/artists/${props.artistAddress}`} >View Artist</Link>
+        <Link href={`/artists/${props.artistAddress}/${props.albumAddress}`} >View Album</Link>
       </div>
     </div>
   )
 }
 
-export default Card
+export default AlbumCard

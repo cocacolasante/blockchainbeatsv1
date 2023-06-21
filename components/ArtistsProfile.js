@@ -21,8 +21,8 @@ const ArtistsProfile = ({userAddress}) => {
 
   return (
     <div>
-    {console.log(currentArtist)}
-    {currentArtist && <DisplayProfile userAddress={userAddress} likes={currentArtist.likes.toString()}  />}
+    
+    {currentArtist && <DisplayProfile userAddress={userAddress} likes={currentArtist.likes.toString()} albums={currentArtist.albums} />}
         
     </div>
   )

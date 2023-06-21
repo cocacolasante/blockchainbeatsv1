@@ -1,5 +1,5 @@
 import Card from "./Card"
-import ProjectGrid from "./ProjectGrid"
+import AlbumGrid from "./AlbumGrid"
 
 const DisplayProfile = (props) => {
   return (
@@ -10,7 +10,7 @@ const DisplayProfile = (props) => {
             <p>Likes: {props.likes}</p>
         </div>
         <div>
-        {props.albums && <ProjectGrid data={props.albums} /> }
+        {props.albums && <AlbumGrid albums={props.albums} /> }
             
         </div>
 
