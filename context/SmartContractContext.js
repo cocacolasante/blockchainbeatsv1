@@ -22,6 +22,8 @@ export const SmartContractContext = React.createContext();
 export const SmartContractProvider = ({children}) =>{
     const [currentAccount, setCurrentAccount] = useState()
 
+    const [albumCreationCost, setAlbumCreationCost] = useState()
+
     const [allArtists, setAllArtists] = useState()
 
     const [usersProfile, setUsersProfile] = useState()
@@ -266,7 +268,7 @@ export const SmartContractProvider = ({children}) =>{
 
     // ALBUM CREATOR FUNCTIONS
 
-    const createAlbumContract = async (albumName, symbol) =>{
+    const createNewAlbumContract = async (albumName, symbol) =>{
         const web3Modal = new Web3Modal()
         const connection = await web3Modal.connect();
         const provider = new ethers.providers.Web3Provider(connection)
@@ -277,7 +279,9 @@ export const SmartContractProvider = ({children}) =>{
         console.log(currentAccount)
 
         try{
-            const tx = await contract.createAlbumContract(albumName, symbol)
+            const currentCost = ethers.BigNumber.from(albumCreationCost)
+            
+            const tx = await contract.createAlbumContract(albumName, symbol, {value: currentCost})
             const res = await tx.wait()
             
             if(res.status ==1){
@@ -316,6 +320,7 @@ export const SmartContractProvider = ({children}) =>{
     useEffect(()=>{
         checkIfWalletIsConnected();
         getAllProfiles();
+        albumCreateCost()
         
     }, [])
 
@@ -347,13 +352,27 @@ export const SmartContractProvider = ({children}) =>{
         return new ethers.Contract(albumAddress, AlbumNftAbi, signerOrProvider)
     }
 
+    const albumCreateCost = async () =>{
+        const provider = new ethers.providers.JsonRpcProvider()
+        const contract = fetchAlbumContract(provider)
+
+        try{
+            let cost = await contract.albumCost()
+            cost = cost.toString()
+            console.log(cost)
+            setAlbumCreationCost(cost)
+        }catch(err){
+            console.log(err)
+        }
+    }
+
     return (
         <SmartContractContext.Provider
         value={({
             connectToWallet,
             checkIfWalletIsConnected,
             getUsersProfile,
-            createAlbumContract,
+            createNewAlbumContract,
             getAllProfiles,
             currentAccount,
             fetchUsersProfile,
@@ -362,7 +381,8 @@ export const SmartContractProvider = ({children}) =>{
             allArtists,
             getAlbumsList,
             fetchIndividualAlbumContract,
-            RpcProvider
+            RpcProvider,
+            albumCreationCost
 
         })}
         >{children}</SmartContractContext.Provider>

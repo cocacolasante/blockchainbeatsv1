@@ -37,6 +37,7 @@ contract AlbumCreator{
     // creates a struct instance and stores in a general mapping of address to array of album addresses
     function createAlbumContract(string memory _albumName, string memory _albSym) public payable returns(address){
         require(msg.value >= albumCost, "AlbumCreator: insufficient funds");
+        
         AlbumNFT newAlbumContract = new AlbumNFT(_albumName, _albSym);
         IProfile(ProfilesAddress).addAlbum(address(newAlbumContract));
 

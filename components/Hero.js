@@ -12,7 +12,8 @@ const Hero = () => {
       
     </div>
         <div className='flex justify-center align-middle'>
-            <Card artistname="Cocacolasante" albumname="testing 2" albumart={blueconcert} />
+            <Card artistname="Cocacolasante" albumname="testing 2" albumart={blueconcert} artistAddress={"0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"}  />
+            {/*  */}
         </div>
 
     </div>
