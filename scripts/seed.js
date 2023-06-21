@@ -79,7 +79,11 @@ async function main() {
     console.log(`Signer1's Album deployed to ${signer1Album1.address}`)
 
     const song1 = await makeSong("NamedSong1", "SAMPLEURI", signer1Album1)
-    await song1
+    await makeSong("NamedSong2", "SAMPLEURI", signer1Album1)
+    await makeSong("NamedSong3", "SAMPLEURI", signer1Album1)
+    await makeSong("NamedSong4", "SAMPLEURI", signer1Album1)
+    await makeSong("NamedSong5", "SAMPLEURI", signer1Album1)
+    
     
 
     console.log(song1)
