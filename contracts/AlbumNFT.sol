@@ -7,7 +7,7 @@ import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 
 contract AlbumNFT is ERC721URIStorage{
     // state var bool for finished or unfinished album
-    bool public finished;
+    bool public finished = false;
     // artist of the album
     address public artist;
 

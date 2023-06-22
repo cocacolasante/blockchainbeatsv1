@@ -63,10 +63,8 @@ export const SmartContractProvider = ({children}) =>{
 
     const fetchUsersProfile = async (address) =>{
         const provider = new ethers.providers.JsonRpcProvider()
-        console.log(provider)
 
         const contract = fetchProfileContract(provider)
-        console.log(contract)
 
         try{
             if(address == undefined){
