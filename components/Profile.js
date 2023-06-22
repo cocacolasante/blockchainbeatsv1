@@ -22,7 +22,7 @@ const Profile = () => {
   return (
     <div className="text-center">
         {!usersProfile ? <p>Loading...</p> : displayProfileOrCreate()}
-        {!usersProfile ? <p>Loading...</p> :  <DisplayActiveUsersAlbums albums={usersProfile.albums} />}
+        {!usersProfile ? <p>Loading...</p> :  <DisplayActiveUsersAlbums profile={true} albums={usersProfile.albums} />}
        
     </div>
   )

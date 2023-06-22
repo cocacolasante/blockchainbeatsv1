@@ -4,7 +4,7 @@ import { SmartContractContext } from "../context/SmartContractContext";
 import AlbumCard from "./AlbumCard"
 import yellowconcert from "../public/images/yellowconcert.png"
 
-const AlbumGrid = ({albums, bgColor}) => {
+const AlbumGrid = ({albums, bgColor, profile}) => {
     const [allAlbums, setAllAlbums] = useState()
     const [albumObjects, setAlbumObjects] = useState()
     const {fetchIndividualAlbumContract, RpcProvider} = useContext(SmartContractContext);
@@ -51,7 +51,7 @@ const AlbumGrid = ({albums, bgColor}) => {
             {allAlbums && allAlbums.map((album, i) =>{
                 console.log(album)   // this is just the address     
                 return(
-                    <AlbumCard  key={i} albumname={album.albumName} artistname={album.artist} albumart={album.albumart || yellowconcert} artistAddress={album.artist} albumAddress={album.albumAddress} />
+                    <AlbumCard profile={profile} key={i} albumname={album.albumName} artistname={album.artist} albumart={album.albumart || yellowconcert} artistAddress={album.artist} albumAddress={album.albumAddress} />
                     
                 )
             })}

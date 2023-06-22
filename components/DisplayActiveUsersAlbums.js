@@ -1,10 +1,10 @@
 import React from 'react'
 import AlbumGrid from "./AlbumGrid";
 
-const DisplayActiveUsersAlbums = ({albums}) => {
+const DisplayActiveUsersAlbums = ({albums, profile}) => {
   return (
     <div>
-        <AlbumGrid albums={albums} />
+        <AlbumGrid albums={albums} profile={profile} />
     </div>
   )
 }

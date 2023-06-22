@@ -79,7 +79,7 @@ const AlbumControls = ({contract}) => {
             return(<p>Loading</p>)
         }
         return (
-            <div>
+            <div className='p-6'>
                 <div>
                     {albumArt.length == 0 ? <h2>Upload Album Art</h2> : <Image src={undefined} />}
                 </div>

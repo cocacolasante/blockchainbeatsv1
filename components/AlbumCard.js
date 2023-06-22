@@ -17,7 +17,8 @@ const AlbumCard = (props) => {
         <Image alt="album artwork" src={!props.albumart ? blueconcert : props.albumart} width={300} height={150} />
       </div>
       <div>
-        <Link href={`/artists/${props.artistAddress}/${props.albumAddress}`} >View Album</Link>
+      {!props.profile ? <Link href={`/artists/${props.artistAddress}/${props.albumAddress}`} >View Album</Link> :  <Link href={`/profile/managealbum/${props.albumAddress}`} >Manage Album</Link> }
+       
       </div>
     </div>
   )
